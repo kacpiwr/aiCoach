@@ -12,7 +12,7 @@ pose = mp_pose.Pose(
 )
 
 # Inicjalizacja kamery (możesz też wczytać plik wideo)
-cap = cv2.VideoCapture(0)  # 0 dla kamery domyślnej, lub ścieżka do pliku wideo
+cap = cv2.VideoCapture("./nba_videos/cut_shots/Mój Film-4-podkreślenie.mp4")  # 0 dla kamery domyślnej, lub ścieżka do pliku wideo
 
 # Lista do przechowywania historii pozycji punktów
 position_history = []
