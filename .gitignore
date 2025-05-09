@@ -4,13 +4,28 @@ __pycache__/
 *$py.class
 *.so
 .Python
-.env
-.venv
-env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
 venv/
 ENV/
-env.bak/
-venv.bak/
+env/
+.env/
+.venv/
 myenv/
 
 # IDE
@@ -29,9 +44,13 @@ ehthumbs.db
 Thumbs.db
 
 # Project specific
-data/raw/*
-data/processed/*
-data/results/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-!data/results/.gitkeep 
+data/raw/videos/*
+data/processed/pose_data/*
+data/processed/analysis/*
+data/models/*
+!data/raw/videos/.gitkeep
+!data/processed/pose_data/.gitkeep
+!data/processed/analysis/.gitkeep
+!data/models/.gitkeep
+logs/*
+!logs/.gitkeep

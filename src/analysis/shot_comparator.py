@@ -16,12 +16,12 @@ class ShotComparator:
         self.reference_data = self._load_reference_data()
         
     def _load_reference_data(self):
-        """Load Curry's reference shooting form data"""
-        reference_file = os.path.join(self.reference_dir, "steph_curry_analysis.json")
-        if not os.path.exists(reference_file):
+        """Load Steph Curry's reference shot data"""
+        reference_path = os.path.join('data', 'results', 'analysis_results', 'steph_curry_analysis.json')
+        if not os.path.exists(reference_path):
             raise FileNotFoundError("Reference data not found. Run shot_analyzer.py first.")
-            
-        with open(reference_file, 'r') as f:
+        
+        with open(reference_path, 'r') as f:
             return json.load(f)
     
     def _extract_features(self, pose_data):

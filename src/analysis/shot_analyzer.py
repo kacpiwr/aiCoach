@@ -17,7 +17,7 @@ class ShotAnalyzer:
             os.makedirs(self.output_dir)
         
     def load_data(self):
-        """Load all pose data from JSON files"""
+        """Load all pose data from JSON files and extract release points"""
         all_data = []
         shot_labels = []
         
@@ -28,70 +28,96 @@ class ShotAnalyzer:
         for file in files:
             with open(os.path.join(self.data_dir, file), 'r') as f:
                 data = json.load(f)
-                # Extract frames where pose was detected
-                for frame in data['frames']:
-                    all_data.append(frame)
-                    shot_labels.append(file)  # Use filename as label
+                
+                if 'frames' not in data:
+                    print(f"Warning: No frames found in {file}")
+                    continue
+                
+                # Find the frame with the highest wrist position (release point)
+                best_frame = None
+                highest_wrist = -float('inf')
+                
+                for frame_data in data['frames']:
+                    try:
+                        # Get right wrist y-coordinate (index 16)
+                        wrist_y = frame_data[16]['y']
+                        if wrist_y > highest_wrist:
+                            highest_wrist = wrist_y
+                            best_frame = frame_data
+                    except (IndexError, KeyError) as e:
+                        print(f"Warning: Could not process frame in {file}: {str(e)}")
+                        continue
+                
+                if best_frame is not None:
+                    all_data.append(best_frame)
+                    shot_labels.append(file)
         
-        return np.array(all_data), np.array(shot_labels)
+        if not all_data:
+            raise ValueError("No valid pose data found in any files")
+            
+        return all_data, np.array(shot_labels)
     
     def extract_features(self, pose_data):
         """Extract relevant features from pose data"""
         features = []
         
-        for pose in pose_data:
-            # Extract key points for shooting form analysis
-            # Right arm points
-            right_shoulder = pose[12]  # Right shoulder
-            right_elbow = pose[14]     # Right elbow
-            right_wrist = pose[16]     # Right wrist
-            
-            # Left arm points
-            left_shoulder = pose[11]   # Left shoulder
-            left_elbow = pose[13]      # Left elbow
-            left_wrist = pose[15]      # Left wrist
-            
-            # Leg points
-            right_hip = pose[24]       # Right hip
-            right_knee = pose[26]      # Right knee
-            right_ankle = pose[28]     # Right ankle
-            
-            # Calculate angles
-            right_elbow_angle = self._calculate_angle(
-                right_shoulder, right_elbow, right_wrist)
-            right_shoulder_angle = self._calculate_angle(
-                right_hip, right_shoulder, right_elbow)
-            right_knee_angle = self._calculate_angle(
-                right_hip, right_knee, right_ankle)
-            
-            # Calculate positions
-            wrist_height = right_wrist['y']
-            elbow_height = right_elbow['y']
-            shoulder_height = right_shoulder['y']
-            
-            # Calculate shot arc
-            shot_arc = self._calculate_shot_arc(right_wrist, right_shoulder)
-            
-            # Calculate release point
-            release_point = self._calculate_release_point(right_wrist, right_shoulder)
-            
-            # Combine features
-            frame_features = [
-                right_elbow_angle,
-                right_shoulder_angle,
-                right_knee_angle,
-                wrist_height,
-                elbow_height,
-                shoulder_height,
-                right_wrist['x'] - right_shoulder['x'],  # Horizontal distance
-                right_wrist['z'] - right_shoulder['z'],  # Depth
-                shot_arc,
-                release_point['x'],
-                release_point['y'],
-                release_point['z']
-            ]
-            
-            features.append(frame_features)
+        # Handle single pose data
+        if not isinstance(pose_data, list):
+            pose_data = [pose_data]
+        
+        for frame_data in pose_data:
+            try:
+                # Extract key points for shooting form analysis using MediaPipe indices
+                # Right side points
+                right_shoulder = frame_data[12]  # Right shoulder
+                right_elbow = frame_data[14]     # Right elbow
+                right_wrist = frame_data[16]     # Right wrist
+                right_hip = frame_data[24]       # Right hip
+                right_knee = frame_data[26]      # Right knee
+                right_ankle = frame_data[28]     # Right ankle
+                
+                # Calculate angles
+                right_elbow_angle = self._calculate_angle(
+                    right_shoulder, right_elbow, right_wrist)
+                right_shoulder_angle = self._calculate_angle(
+                    right_hip, right_shoulder, right_elbow)
+                right_knee_angle = self._calculate_angle(
+                    right_hip, right_knee, right_ankle)
+                
+                # Calculate positions
+                wrist_height = right_wrist['y']
+                elbow_height = right_elbow['y']
+                shoulder_height = right_shoulder['y']
+                
+                # Calculate shot arc
+                shot_arc = self._calculate_shot_arc(right_wrist, right_shoulder)
+                
+                # Calculate release point
+                release_point = self._calculate_release_point(right_wrist, right_shoulder)
+                
+                # Combine features
+                frame_features = [
+                    right_elbow_angle,
+                    right_shoulder_angle,
+                    right_knee_angle,
+                    wrist_height,
+                    elbow_height,
+                    shoulder_height,
+                    right_wrist['x'] - right_shoulder['x'],  # Horizontal distance
+                    right_wrist['z'] - right_shoulder['z'],  # Depth
+                    shot_arc,
+                    release_point['x'],
+                    release_point['y'],
+                    release_point['z']
+                ]
+                
+                features.append(frame_features)
+            except Exception as e:
+                print(f"Warning: Could not extract features from frame: {str(e)}")
+                continue
+        
+        if not features:
+            raise ValueError("No valid features could be extracted from any frame")
             
         return np.array(features)
     
@@ -139,81 +165,46 @@ class ShotAnalyzer:
             'Shot Arc', 'Release X', 'Release Y', 'Release Z'
         ]
         
-        # Standardize features
-        scaler = StandardScaler()
-        features_scaled = scaler.fit_transform(features)
-        
-        # Dimensionality reduction for visualization
-        pca = PCA(n_components=2)
-        features_2d = pca.fit_transform(features_scaled)
-        
-        # Clustering
-        kmeans = KMeans(n_clusters=3, random_state=42)
-        clusters = kmeans.fit_predict(features_scaled)
-        
         # Calculate statistics for each feature
         feature_stats = {}
         for i, name in enumerate(feature_names):
             feature_stats[name] = {
-                'mean': np.mean(features[:, i]),
-                'std': np.std(features[:, i]),
-                'min': np.min(features[:, i]),
-                'max': np.max(features[:, i])
+                'mean': float(np.mean(features[:, i])),
+                'std': float(np.std(features[:, i])),
+                'min': float(np.min(features[:, i])),
+                'max': float(np.max(features[:, i]))
             }
         
-        # Visualize results
-        self._plot_results(features_2d, labels, clusters, feature_stats, feature_names)
+        # Save analysis results
+        self._save_results(feature_stats, feature_names)
         
         # Print insights
         self._print_insights(feature_stats, feature_names)
         
-        # Save analysis results
-        self._save_results(feature_stats, feature_names)
+        # Visualize results
+        self._plot_results(features, labels, feature_stats, feature_names)
     
-    def _plot_results(self, features_2d, labels, clusters, feature_stats, feature_names):
+    def _plot_results(self, features, labels, feature_stats, feature_names):
         """Create visualizations of the analysis"""
-        plt.figure(figsize=(20, 15))
+        plt.figure(figsize=(15, 10))
         
-        # Plot 1: PCA visualization
-        plt.subplot(2, 2, 1)
-        plt.scatter(features_2d[:, 0], features_2d[:, 1], c=clusters, cmap='viridis')
-        plt.title('PCA Visualization of Steph Curry\'s Shooting Forms')
-        plt.xlabel('Principal Component 1')
-        plt.ylabel('Principal Component 2')
-        
-        # Plot 2: Feature distributions
-        plt.subplot(2, 2, 2)
+        # Plot 1: Feature distributions
+        plt.subplot(2, 1, 1)
         feature_means = [stats['mean'] for stats in feature_stats.values()]
         feature_stds = [stats['std'] for stats in feature_stats.values()]
         plt.barh(feature_names, feature_means, xerr=feature_stds)
-        plt.title('Feature Distributions')
+        plt.title('Feature Distributions at Release Point')
         plt.xlabel('Value')
         
-        # Plot 3: Feature correlations
-        plt.subplot(2, 2, 3)
-        # Create correlation matrix from feature statistics
-        correlation_matrix = np.zeros((len(feature_names), len(feature_names)))
-        for i, name1 in enumerate(feature_names):
-            for j, name2 in enumerate(feature_names):
-                if i == j:
-                    correlation_matrix[i, j] = 1.0
-                else:
-                    # Use a simple correlation based on means and standard deviations
-                    correlation_matrix[i, j] = np.random.uniform(-1, 1)  # Placeholder
-        
+        # Plot 2: Feature correlations
+        plt.subplot(2, 1, 2)
+        correlation_matrix = np.corrcoef(features.T)
         sns.heatmap(correlation_matrix, 
                    xticklabels=feature_names,
                    yticklabels=feature_names,
                    cmap='coolwarm',
                    center=0)
         plt.title('Feature Correlations')
-        
-        # Plot 4: Cluster distributions
-        plt.subplot(2, 2, 4)
-        cluster_sizes = np.bincount(clusters)
-        plt.pie(cluster_sizes, labels=[f'Cluster {i+1}' for i in range(len(cluster_sizes))],
-                autopct='%1.1f%%')
-        plt.title('Distribution of Shooting Form Clusters')
         
         plt.tight_layout()
         plt.savefig(os.path.join(self.output_dir, 'steph_curry_analysis.png'))

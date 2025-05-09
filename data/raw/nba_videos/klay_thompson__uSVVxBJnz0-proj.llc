@@ -1,0 +1,16 @@
+{
+  version: 2,
+  mediaFileName: 'klay_thompson__uSVVxBJnz0.mp4',
+  cutSegments: [
+    {
+      start: 13.348309,
+      name: '',
+      selected: true,
+    },
+    {
+      start: 14.508038,
+      name: '',
+      selected: true,
+    },
+  ],
+}

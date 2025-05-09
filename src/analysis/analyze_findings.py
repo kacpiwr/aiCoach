@@ -111,52 +111,55 @@ class FindingsAnalyzer:
         
         findings['analysis']['recommendations'] = recommendations
     
-    def save_findings(self, findings, output_format='both'):
-        """Save findings in specified format (txt, json, or both)"""
+    def save_findings(self, findings):
+        """Save findings to both human-readable and machine-readable formats"""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        player_name = findings['player_name']
-        base_path = os.path.join(self.findings_dir, f"{player_name}_{timestamp}")
+        base_path = os.path.join('data', 'results', 'analysis_findings', 
+                               f"{findings['player_name']}_{timestamp}")
         
-        if output_format in ['json', 'both']:
-            # Save JSON format
-            json_path = f"{base_path}_findings.json"
-            with open(json_path, 'w') as f:
-                json.dump(findings, f, indent=4)
+        # Save human-readable format
+        with open(f"{base_path}_findings.txt", 'w') as f:
+            f.write(self._format_findings_text(findings))
         
-        if output_format in ['txt', 'both']:
-            # Save human-readable format
-            txt_path = f"{base_path}_findings.txt"
-            with open(txt_path, 'w') as f:
-                f.write(f"Shot Form Analysis for {player_name}\n")
-                f.write(f"Date: {findings['timestamp']}\n")
-                f.write("=" * 50 + "\n\n")
-                
-                f.write(f"Overall Score: {findings['overall_score']:.1f}/100\n\n")
-                
-                f.write("STRENGTHS:\n")
-                f.write("-" * 20 + "\n")
-                for strength in findings['analysis']['strengths']:
-                    f.write(f"• {strength['details']}\n")
-                f.write("\n")
-                
-                f.write("AREAS FOR IMPROVEMENT:\n")
-                f.write("-" * 20 + "\n")
-                for improvement in findings['analysis']['improvements']:
-                    f.write(f"• {improvement['details']}\n")
-                f.write("\n")
-                
-                f.write("KEY DIFFERENCES FROM CURRY'S FORM:\n")
-                f.write("-" * 20 + "\n")
-                for diff in findings['analysis']['key_differences']:
-                    f.write(f"• {diff['details']}\n")
-                f.write("\n")
-                
-                f.write("RECOMMENDATIONS:\n")
-                f.write("-" * 20 + "\n")
-                for rec in findings['analysis']['recommendations']:
-                    f.write(f"• {rec}\n")
+        # Save machine-readable format
+        with open(f"{base_path}_findings.json", 'w') as f:
+            json.dump(findings, f, indent=4)
         
         return base_path
+
+    def _format_findings_text(self, findings):
+        """Format findings into a human-readable text format"""
+        text = []
+        text.append(f"Shot Form Analysis for {findings['player_name']}")
+        text.append(f"Date: {findings['timestamp']}")
+        text.append("=" * 50 + "\n")
+        
+        text.append(f"Overall Score: {findings['overall_score']:.1f}/100\n")
+        
+        text.append("STRENGTHS:")
+        text.append("-" * 20)
+        for strength in findings['analysis']['strengths']:
+            text.append(f"• {strength['details']}")
+        text.append("")
+        
+        text.append("AREAS FOR IMPROVEMENT:")
+        text.append("-" * 20)
+        for improvement in findings['analysis']['improvements']:
+            text.append(f"• {improvement['details']}")
+        text.append("")
+        
+        text.append("KEY DIFFERENCES FROM CURRY'S FORM:")
+        text.append("-" * 20)
+        for diff in findings['analysis']['key_differences']:
+            text.append(f"• {diff['details']}")
+        text.append("")
+        
+        text.append("RECOMMENDATIONS:")
+        text.append("-" * 20)
+        for rec in findings['analysis']['recommendations']:
+            text.append(f"• {rec}")
+        
+        return "\n".join(text)
 
 def main():
     # Initialize analyzer
