@@ -1,0 +1,33 @@
+Shot Form Analysis for kacper
+Date: 2025-05-09 18:40:24
+==================================================
+
+Overall Similarity to Curry's Form: 63.8%
+
+STRENGTHS:
+--------------------
+
+AREAS FOR IMPROVEMENT:
+--------------------
+• knee_angle: 29.1/100 - Significant difference from Curry's form
+• wrist_height: 44.8/100 - Significant difference from Curry's form
+• elbow_height: 35.5/100 - Significant difference from Curry's form
+• horizontal_distance: 1.6/100 - Significant difference from Curry's form
+• shot_arc: 52.7/100 - Significant difference from Curry's form
+• release_x: 1.6/100 - Significant difference from Curry's form
+• release_y: 44.8/100 - Significant difference from Curry's form
+
+KEY DIFFERENCES FROM CURRY'S FORM:
+--------------------
+• knee_angle: -18.811 units lower than Curry's average of 171.529
+• shoulder_angle: 13.168 units higher than Curry's average of 8.610
+• elbow_angle: -11.977 units lower than Curry's average of 164.269
+
+RECOMMENDATIONS:
+--------------------
+• Work on increaseing wrist_height - current: 0.048, target: 0.190
+• Work on increaseing release_y - current: 0.048, target: 0.190
+• Work on increaseing knee_angle - current: 152.718, target: 171.529
+• Work on increaseing elbow_height - current: 0.008, target: 0.109
+• Work on decreaseing horizontal_distance - current: 0.139, target: -0.008
+• Work on decreaseing release_x - current: 0.139, target: -0.008

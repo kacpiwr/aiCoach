@@ -1,0 +1,284 @@
+{
+    "overall_similarity": 61.947177814685176,
+    "stages": {
+        "stance": {
+            "timestamp": "2025-05-10 18:58:32",
+            "similarity_score": 73.58133041645492,
+            "feature_analysis": {
+                "elbow_angle": {
+                    "value": 174.64834996102329,
+                    "reference_mean": 157.5784670323965,
+                    "reference_std": 36.40886222430552,
+                    "score": 79.10300355501624,
+                    "z_score": 0.4688386806339533
+                },
+                "shoulder_angle": {
+                    "value": 11.759162384081508,
+                    "reference_mean": 7.734174422969168,
+                    "reference_std": 14.75223278966318,
+                    "score": 87.24764477344445,
+                    "z_score": 0.2728392385410722
+                },
+                "knee_angle": {
+                    "value": 178.22851155947905,
+                    "reference_mean": 172.23556720097798,
+                    "reference_std": 9.334653923089597,
+                    "score": 72.54194998017563,
+                    "z_score": 0.6420103420949869
+                },
+                "wrist_height": {
+                    "value": 0.10379025340080261,
+                    "reference_mean": 0.17178730957391786,
+                    "reference_std": 0.05901867966499347,
+                    "score": 56.21065511014955,
+                    "z_score": 1.1521277087031692
+                },
+                "elbow_height": {
+                    "value": 0.06434991955757141,
+                    "reference_mean": 0.0988404260175984,
+                    "reference_std": 0.034125908951877205,
+                    "score": 60.32992445432267,
+                    "z_score": 1.010683891487372
+                },
+                "depth": {
+                    "value": 0.00927327573299408,
+                    "reference_mean": -0.014459711187178405,
+                    "reference_std": 0.08429402707510529,
+                    "score": 86.86847252428899,
+                    "z_score": 0.2815500426741575
+                },
+                "shot_arc": {
+                    "value": 1.7142315606364782,
+                    "reference_mean": 1.5215606941587787,
+                    "reference_std": 0.5140175166287538,
+                    "score": 82.90982331684701,
+                    "z_score": 0.37483326977133913
+                },
+                "release_y": {
+                    "value": 0.10379025340080261,
+                    "reference_mean": 0.17178730957391786,
+                    "reference_std": 0.05901867966499347,
+                    "score": 56.21065511014955,
+                    "z_score": 1.1521277087031692
+                }
+            },
+            "recommendations": [],
+            "anomaly_score": -0.4567788552510217,
+            "stage": "stance"
+        },
+        "release": {
+            "timestamp": "2025-05-10 18:58:32",
+            "similarity_score": 56.261507653952826,
+            "feature_analysis": {
+                "elbow_angle": {
+                    "value": 123.8649717817572,
+                    "reference_mean": 157.5784670323965,
+                    "reference_std": 36.40886222430552,
+                    "score": 62.94022368588335,
+                    "z_score": 0.9259694808077009
+                },
+                "shoulder_angle": {
+                    "value": 124.94541147381487,
+                    "reference_mean": 7.734174422969168,
+                    "reference_std": 14.75223278966318,
+                    "score": 1.882327940204841,
+                    "z_score": 7.945321818197925
+                },
+                "knee_angle": {
+                    "value": 174.2072848435283,
+                    "reference_mean": 172.23556720097798,
+                    "reference_std": 9.334653923089597,
+                    "score": 89.97729839675335,
+                    "z_score": 0.21122557502353714
+                },
+                "wrist_height": {
+                    "value": -0.06897154450416565,
+                    "reference_mean": 0.17178730957391786,
+                    "reference_std": 0.05901867966499347,
+                    "score": 13.006987162294207,
+                    "z_score": 4.079366997782704
+                },
+                "elbow_height": {
+                    "value": -0.011481910943984985,
+                    "reference_mean": 0.0988404260175984,
+                    "reference_std": 0.034125908951877205,
+                    "score": 19.861213168418704,
+                    "z_score": 3.232802886427286
+                },
+                "depth": {
+                    "value": -0.07747720810584724,
+                    "reference_mean": -0.014459711187178405,
+                    "reference_std": 0.08429402707510529,
+                    "score": 68.81174504584231,
+                    "z_score": 0.7475914854859261
+                },
+                "shot_arc": {
+                    "value": -1.399864912495057,
+                    "reference_mean": 1.5215606941587787,
+                    "reference_std": 0.5140175166287538,
+                    "score": 5.8323110444191375,
+                    "z_score": 5.683513717225747
+                },
+                "release_y": {
+                    "value": -0.06897154450416565,
+                    "reference_mean": 0.17178730957391786,
+                    "reference_std": 0.05901867966499347,
+                    "score": 13.006987162294207,
+                    "z_score": 4.079366997782704
+                }
+            },
+            "recommendations": [
+                {
+                    "feature": "shoulder_angle",
+                    "action": "decrease",
+                    "current": 124.94541147381487,
+                    "target": 7.734174422969168,
+                    "importance": "high"
+                },
+                {
+                    "feature": "wrist_height",
+                    "action": "increase",
+                    "current": -0.06897154450416565,
+                    "target": 0.17178730957391786,
+                    "importance": "high"
+                },
+                {
+                    "feature": "elbow_height",
+                    "action": "increase",
+                    "current": -0.011481910943984985,
+                    "target": 0.0988404260175984,
+                    "importance": "high"
+                },
+                {
+                    "feature": "shot_arc",
+                    "action": "increase",
+                    "current": -1.399864912495057,
+                    "target": 1.5215606941587787,
+                    "importance": "high"
+                },
+                {
+                    "feature": "release_y",
+                    "action": "increase",
+                    "current": -0.06897154450416565,
+                    "target": 0.17178730957391786,
+                    "importance": "high"
+                }
+            ],
+            "anomaly_score": -0.7251595853125848,
+            "stage": "release"
+        },
+        "follow_through": {
+            "timestamp": "2025-05-10 18:58:32",
+            "similarity_score": 55.9986953736478,
+            "feature_analysis": {
+                "elbow_angle": {
+                    "value": 174.8226030649595,
+                    "reference_mean": 157.5784670323965,
+                    "reference_std": 36.40886222430552,
+                    "score": 78.91393606305857,
+                    "z_score": 0.47362468858066403
+                },
+                "shoulder_angle": {
+                    "value": 152.30814185103478,
+                    "reference_mean": 7.734174422969168,
+                    "reference_std": 14.75223278966318,
+                    "score": 0.7446056584906019,
+                    "z_score": 9.80014140838178
+                },
+                "knee_angle": {
+                    "value": 175.05200706686824,
+                    "reference_mean": 172.23556720097798,
+                    "reference_std": 9.334653923089597,
+                    "score": 85.99686346432662,
+                    "z_score": 0.3017187234894371
+                },
+                "wrist_height": {
+                    "value": -0.09077185392379761,
+                    "reference_mean": 0.17178730957391786,
+                    "reference_std": 0.05901867966499347,
+                    "score": 10.813515380153863,
+                    "z_score": 4.448746820296129
+                },
+                "elbow_height": {
+                    "value": -0.04376974701881409,
+                    "reference_mean": 0.0988404260175984,
+                    "reference_std": 0.034125908951877205,
+                    "score": 12.37526220080537,
+                    "z_score": 4.178941379627861
+                },
+                "depth": {
+                    "value": -0.21907239221036434,
+                    "reference_mean": -0.014459711187178405,
+                    "reference_std": 0.08429402707510529,
+                    "score": 29.710064107094848,
+                    "z_score": 2.42736867750876
+                },
+                "shot_arc": {
+                    "value": -2.0833213607481715,
+                    "reference_mean": 1.5215606941587787,
+                    "reference_std": 0.5140175166287538,
+                    "score": 2.999948376766991,
+                    "z_score": 7.013150210424746
+                },
+                "release_y": {
+                    "value": -0.09077185392379761,
+                    "reference_mean": 0.17178730957391786,
+                    "reference_std": 0.05901867966499347,
+                    "score": 10.813515380153863,
+                    "z_score": 4.448746820296129
+                }
+            },
+            "recommendations": [
+                {
+                    "feature": "shoulder_angle",
+                    "action": "decrease",
+                    "current": 152.30814185103478,
+                    "target": 7.734174422969168,
+                    "importance": "high"
+                },
+                {
+                    "feature": "wrist_height",
+                    "action": "increase",
+                    "current": -0.09077185392379761,
+                    "target": 0.17178730957391786,
+                    "importance": "high"
+                },
+                {
+                    "feature": "elbow_height",
+                    "action": "increase",
+                    "current": -0.04376974701881409,
+                    "target": 0.0988404260175984,
+                    "importance": "high"
+                },
+                {
+                    "feature": "depth",
+                    "action": "increase",
+                    "current": -0.21907239221036434,
+                    "target": -0.014459711187178405,
+                    "importance": "high"
+                },
+                {
+                    "feature": "shot_arc",
+                    "action": "increase",
+                    "current": -2.0833213607481715,
+                    "target": 1.5215606941587787,
+                    "importance": "high"
+                },
+                {
+                    "feature": "release_y",
+                    "action": "increase",
+                    "current": -0.09077185392379761,
+                    "target": 0.17178730957391786,
+                    "importance": "high"
+                }
+            ],
+            "anomaly_score": -0.7298417924234655,
+            "stage": "follow_through"
+        }
+    },
+    "stage_sequence": {
+        "stance": 0,
+        "release": 1,
+        "follow_through": 2
+    }
+}

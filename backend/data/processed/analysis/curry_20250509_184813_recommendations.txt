@@ -1,0 +1,28 @@
+Shot Form Analysis for curry
+Date: 2025-05-09 18:48:13
+==================================================
+
+Overall Similarity to Curry's Form: 73.7%
+
+STRENGTHS:
+--------------------
+• shoulder_angle: 91.2/100 - Similar to Curry's form (difference: 3.895)
+• shot_arc: 96.1/100 - Very close to Curry's form (difference: 0.067)
+
+AREAS FOR IMPROVEMENT:
+--------------------
+• knee_angle: 68.3/100 - Moderate difference from Curry's form
+• wrist_height: 65.8/100 - Moderate difference from Curry's form
+• elbow_height: 69.2/100 - Moderate difference from Curry's form
+• horizontal_distance: 59.6/100 - Significant difference from Curry's form
+• release_x: 59.6/100 - Significant difference from Curry's form
+• release_y: 65.8/100 - Moderate difference from Curry's form
+
+KEY DIFFERENCES FROM CURRY'S FORM:
+--------------------
+• elbow_angle: -16.443 units lower than Curry's average of 164.269
+• knee_angle: 5.812 units higher than Curry's average of 171.529
+• shoulder_angle: 3.895 units higher than Curry's average of 8.610
+
+RECOMMENDATIONS:
+--------------------

@@ -53,4 +53,4 @@ data/models/*
 !data/processed/analysis/.gitkeep
 !data/models/.gitkeep
 logs/*
-!logs/.gitkeep
+!logs/.gitkeepdata/raw/nba_videos/*.mp4
