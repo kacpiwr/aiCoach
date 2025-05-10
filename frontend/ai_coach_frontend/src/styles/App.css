@@ -1,7 +1,7 @@
 :root {
-  --primary-color: #ff6b00;
+  --primary-color: #ffffff;
   --secondary-color: #ff8533;
-  --background-color: #121212;
+  --background-color: #1e1e1e;
   --surface-color: #1e1e1e;
   --text-color: #ffffff;
   --error-color: #ff4444;
@@ -36,7 +36,7 @@ body {
 
 button {
   background-color: var(--primary-color);
-  color: white;
+  color: black;
   border: none;
   padding: 0.8rem 1.5rem;
   border-radius: 4px;

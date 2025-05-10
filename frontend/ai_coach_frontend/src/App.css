@@ -1,3 +1,4 @@
+/* Mobile-first styles */
 .App {
   text-align: center;
 }
@@ -26,6 +27,48 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.main-content {
+  padding: 1rem;
+}
+
+.navbar {
+  background-color: var(--surface-color);
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center; /* Align items vertically */
+  justify-content: flex-start; /* Align items horizontally */
+  gap: 1rem; /* Add spacing between logo and title */
+}
+
+.navbar-brand h1 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Larger screens (tablet and desktop) */
+@media (min-width: 768px) {
+  .main-content {
+    padding: 2rem;
+  }
+
+  .navbar {
+    justify-content: flex-start;
+    padding: 1rem 2rem;
+  }
+
+  .navbar-brand h1 {
+    font-size: 1.8rem;
+  }
+
+  .navbar-logo {
+    height: 50px;
+    width: auto; /* Maintain aspect ratio */
+  }
 }
 
 @keyframes App-logo-spin {

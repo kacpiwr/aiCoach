@@ -1,0 +1,132 @@
+/* Mobile-first styles */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.upload-section,
+.results-section {
+  background-color: var(--surface-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.upload-section h2,
+.results-section h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+button {
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: var(--error-color);
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background-color: rgba(255, 68, 68, 0.1);
+  border-radius: 4px;
+}
+
+.results-content {
+  background-color: var(--background-color);
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+
+.results-content li {
+  margin-bottom: 0.5rem;
+}
+
+/* Larger screens (tablet and desktop) */
+@media (min-width: 768px) {
+  .home-container {
+    padding: 2rem;
+  }
+
+  .upload-section,
+  .results-section {
+    padding: 2rem;
+  }
+
+  .upload-section h2,
+  .results-section h2 {
+    font-size: 2rem;
+  }
+
+  .upload-form {
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .form-group {
+    flex: 1;
+  }
+
+  button {
+    align-self: flex-start;
+  }
+}
+/* Hide the default file input */
+.hidden-file-input {
+  display: none;
+}
+
+/* Custom file button */
+.custom-file-button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.custom-file-button:hover {
+  background-color: var(--primary-color-hover);
+  transform: scale(1.05);
+}
+
+.custom-file-button:active {
+  transform: scale(0.95);
+}
